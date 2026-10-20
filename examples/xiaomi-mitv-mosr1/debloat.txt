@@ -1,0 +1,73 @@
+# Xiaomi MiTV-MOSR1 (codename hermano_eu), Android TV 11 (SDK 30), firmware RTT8.210119.001.1129
+# MediaTek MT5867. European firmware — no Xiaomi settings app, uses stock android.settings.* intents.
+# Stock launcher: com.google.android.tvlauncher (disabled by launcher/build-and-install.sh).
+# Live TV app: com.mitv.livetv (owns SelectInputActivity — the HDMI/source switcher).
+#
+# Apply:   TV_HOST=192.168.1.8 tools/disable.sh examples/xiaomi-mitv-mosr1/debloat.txt
+# Undo:    TV_HOST=192.168.1.8 tools/restore.sh examples/xiaomi-mitv-mosr1/debloat.txt
+# Everything is DISABLED for user 0, not uninstalled. Comment out any line to keep it.
+#
+# DO NOT DISABLE on this model (verified with dumpsys):
+#   com.mitv.livetv              owns .input.SelectInputActivity – the HDMI/source switcher lives
+#                                inside the Live TV app; disabling it kills input switching
+#   mitv.service                 PERSISTENT; hosts TvServer, TvSettingService, remote key handling
+#   com.mitv.overseaservice      PERSISTENT; hosts .netflixService (Netflix key on the remote)
+#   com.mediatek.network         PERSISTENT network monitor
+#   com.mediatek.tvinput         HDMI / tuner input framework
+#   com.mediatek.tv.service      core TV service
+#   com.mi.bluetooth             remote + Bluetooth pairing
+#   com.google.android.tv.remote.service   phone-as-remote (user chose to keep)
+#   com.google.android.katniss             Google Assistant (user chose to keep)
+#   com.google.android.apps.mediashell     Chromecast built-in (user chose to keep)
+#   com.xiaomi.mitv.updateservice          OTA updates (user chose to keep)
+#   com.mitv.updater                       OTA updater (user chose to keep)
+#   com.xiaomi.android.tvsetup.partnercustomizer   safe to leave; removing it can break UI theming
+
+# ── Xiaomi + Google telemetry / analytics ─────────────────────────────────────────────────────────
+com.miui.tv.analytics
+com.xiaomi.statistic
+com.google.android.feedback
+com.google.android.partnersetup        # Google RLZ attribution pings
+
+# ── PatchWall, ad rows, promo content ─────────────────────────────────────────────────────────────
+com.mitv.tvhome.atv                    # PatchWall home; not a HOME candidate on this build
+com.mitv.tvhome.michannel              # Mi content rows
+com.xm.webcontent                      # Xiaomi promo WebView / RN container
+com.google.android.tvrecommendations   # Google recommendation rows
+android.autoinstalls.config.xiaomi.amelie   # silent preload installer config
+
+# ── Retail demo ───────────────────────────────────────────────────────────────────────────────────
+fusion.android.tv.demo
+
+# ── Cleaner / nagware / dead weight ───────────────────────────────────────────────────────────────
+com.xiaomi.mitv.tvmanager              # "TV Manager" cleaner
+com.mitv.toolhouse
+com.xiaomo.tv.milegal                  # on-screen legal notices
+
+# ── Miracast / Mi Cast (Chromecast built-in kept; these add nothing over it) ──────────────────────
+com.xiaomi.mitv.smartshare
+com.xiaomi.wfdsinkhelperservice
+com.mitv.milinkservice
+
+# ── Preloaded apps ────────────────────────────────────────────────────────────────────────────────
+com.mitv.gallery
+com.xiaomi.mimusic2
+com.google.android.play.games
+com.google.android.marvin.talkback
+com.xiaomi.mitv.mediaexplorer
+com.google.android.backdrop            # Google ambient/backdrop screensaver
+com.xiaomi.floatingframe
+com.google.android.videos              # Google Play Movies (not used)
+com.mitv.videoplayer
+com.mxtech.videoplayer.television      # MX Player TV
+com.android.printspooler
+com.mitv.dream                         # stock Mi screensaver; launcher's ClockDream replaces it
+com.duokan.factorytest                 # factory test app; also claims android.intent.category.HOME
+
+# ── Setup wizard — ONLY AFTER com.gathin.tvhome IS INSTALLED ─────────────────────────────────────
+# setupwraith has a HOME filter at priority 1; without it disabled, it reclaims Home the moment
+# tvlauncher is gone. BEFORE running this line you must forget your Wi-Fi network on the TV and
+# rejoin it in Settings → Network & Internet (the saved network is owned by setupwraith and Android
+# deletes it the moment setupwraith is disabled, taking the TV off Wi-Fi and killing ADB).
+# tools/disable.sh will also warn you automatically. Re-enable it before any factory reset.
+com.google.android.tungsten.setupwraith
