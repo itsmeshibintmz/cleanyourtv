@@ -588,7 +588,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
             lp.width = (int) w;
             lp.height = (int) h;
             glass.setLayoutParams(lp);
-            glass.setRadius(AppAdapter.cornerRadius(card.getWidth(), density) * scale + pad);
+            glass.setRadius(AppAdapter.cornerRadius(card.getWidth(), density) * scale);
         }
         glassTargetX = x;
         glassTargetY = y;
@@ -829,40 +829,40 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
 
     // ---- top bar ---------------------------------------------------------------------------------
 
-    // Tech-focused quotes that rotate daily — one per day, never motivational.
+    // Short, punchy tech quotes — rotate daily, fit in 1–2 lines at 11sp.
     private static final String[] TECH_QUOTES = {
-        "Any sufficiently advanced technology is indistinguishable from magic.  — Arthur C. Clarke",
-        "Talk is cheap. Show me the code.  — Linus Torvalds",
-        "The best way to predict the future is to invent it.  — Alan Kay",
-        "Premature optimization is the root of all evil.  — Donald Knuth",
-        "The cloud is just someone else's computer.",
-        "If debugging is removing bugs, then programming must be putting them in.  — Dijkstra",
-        "Programs must be written for people to read, only incidentally for machines.  — Abelson",
-        "Without data, you're just another person with an opinion.  — W. Edwards Deming",
-        "There are 10 types of people: those who understand binary and those who don't.",
-        "Good code is its own best documentation.  — Steve McConnell",
-        "Make it work, make it right, make it fast.  — Kent Beck",
-        "Don't comment bad code — rewrite it.  — Brian Kernighan",
-        "Real privacy isn't convenience theater — it's math.",
-        "The best interface is no interface.  — Golden Krishna",
-        "Unix is user-friendly; it's just picky about who its friends are.",
-        "Data is the new oil.  — Clive Humby",
-        "Hardware eventually fails. Software eventually works.",
-        "First, solve the problem. Then, write the code.",
-        "Given enough eyeballs, all bugs are shallow.  — Linus's Law",
-        "The most dangerous phrase: 'We've always done it this way.'  — Grace Hopper",
-        "Simplicity is the ultimate sophistication.  — da Vinci",
-        "Software is eating the world.  — Marc Andreessen",
-        "Every line of code is a liability.",
-        "The future is already here — it's just not evenly distributed.  — William Gibson",
+        "There's no place like 127.0.0.1",
         "It's not a bug — it's an undocumented feature.",
-        "Bad programmers worry about code. Good programmers worry about data structures.  — Torvalds",
-        "Measuring progress by lines of code is like measuring flight by fuel burned.  — Gates",
-        "The art of programming is the art of organizing complexity.  — Dijkstra",
-        "Think twice, code once.",
-        "Open source: collaborating, not competing.  — Tim O'Reilly",
-        "The question of whether a computer can think is no more interesting than whether a submarine can swim.  — Dijkstra",
-        "Computers are useless. They can only give you answers.  — Picasso",
+        "Talk is cheap. Show me the code.  — Linus",
+        "sudo make me a sandwich.",
+        "The cloud is just someone else's computer.",
+        "Have you tried turning it off and on again?",
+        "404: motivation not found.",
+        "First, solve the problem. Then, write the code.",
+        "Make it work. Make it right. Make it fast.",
+        "Good code is its own documentation.",
+        "The best code is no code at all.",
+        "Simplicity is the ultimate sophistication.",
+        "Weeks of coding can save hours of planning.",
+        "Ship it. Fix it. Ship it again.",
+        "Life is short — use Python.",
+        "Ctrl+Z is my superpower.",
+        "To err is human. To blame the compiler, divine.",
+        "A Wi-Fi password is just a social barrier.",
+        "git commit -m 'fixed it, no idea how'",
+        "Real engineers ship on Fridays. Then pray.",
+        "Premature optimisation is the root of all evil.",
+        "Hardware fails. Software eventually works.",
+        "Caffeine: the primary programming language.",
+        "Open source: standing on giants' shoulders.",
+        "The best UX is the one users never notice.",
+        "On the Internet, nobody knows you're a toaster.",
+        "rm -rf /problems — just kidding, don't.",
+        "Think twice. Code once. Deploy never.",
+        "Every great dev started where you are now.",
+        "Your favourite language is wrong. So is everyone's.",
+        "Data: the new oil — and equally messy.",
+        "I don't always test my code. When I do, it's in production.",
     };
 
     private void updateGreeting() {

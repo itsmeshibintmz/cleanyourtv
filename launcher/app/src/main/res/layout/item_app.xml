@@ -13,6 +13,8 @@
         android:layout_height="101dp"
         android:layout_gravity="center_horizontal|top"
         android:background="@drawable/tile_bg"
+        android:elevation="0dp"
+        android:stateListAnimator="@null"
         android:focusable="true"
         android:clickable="true">
 

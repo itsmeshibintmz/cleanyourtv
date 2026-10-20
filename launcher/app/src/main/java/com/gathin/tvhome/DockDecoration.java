@@ -21,10 +21,10 @@ public class DockDecoration extends RecyclerView.ItemDecoration {
     DockDecoration(int dockSize, float density) {
         this.dockSize = dockSize;
         this.density = density;
-        band.setColor(0x55141416);   // 33% opacity — wallpaper shows through
+        band.setColor(0x00141416);   // fully transparent — no dark fill at all
         edge.setStyle(Paint.Style.STROKE);
-        edge.setStrokeWidth(density);
-        edge.setColor(0x22FFFFFF);   // very subtle border
+        edge.setStrokeWidth(density * 1.5f);
+        edge.setColor(0x28FFFFFF);   // subtle white outline only — no dark background
     }
 
     @Override
