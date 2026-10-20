@@ -64,10 +64,19 @@ com.android.printspooler
 com.mitv.dream                         # stock Mi screensaver; launcher's ClockDream replaces it
 com.duokan.factorytest                 # factory test app; also claims android.intent.category.HOME
 
+# ── Extra / remnants ──────────────────────────────────────────────────────────────────────────────
+me.efesser.flauncher                   # FLauncher — replaced by com.gathin.tvhome, not needed
+com.google.android.syncadapters.calendar   # calendar sync — useless on a TV
+com.android.wallpaperbackup            # wallpaper backup — not needed
+com.mstar.android.tv.disclaimercustomization   # MStar hardware vendor disclaimer remnant
+com.google.android.onetimeinitializer  # one-time boot initializer — already ran, stays dormant
+
 # ── Setup wizard — ONLY AFTER com.gathin.tvhome IS INSTALLED ─────────────────────────────────────
 # setupwraith has a HOME filter at priority 1; without it disabled, it reclaims Home the moment
 # tvlauncher is gone. BEFORE running this line you must forget your Wi-Fi network on the TV and
 # rejoin it in Settings → Network & Internet (the saved network is owned by setupwraith and Android
 # deletes it the moment setupwraith is disabled, taking the TV off Wi-Fi and killing ADB).
-# tools/disable.sh will also warn you automatically. Re-enable it before any factory reset.
+# Rejoin creates a second com.android.tv.settings-owned entry; setupwraith's entry is then deleted
+# when it is disabled and Wi-Fi stays up via the tv.settings entry. TV may get a new DHCP IP.
+# tools/disable.sh will also warn you automatically. Re-enable before any factory reset.
 com.google.android.tungsten.setupwraith
