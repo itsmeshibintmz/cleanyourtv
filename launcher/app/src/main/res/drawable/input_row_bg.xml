@@ -1,15 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Focused row: glass treatment matching the pills -->
     <item android:state_focused="true">
-        <shape android:shape="rectangle">
-            <solid android:color="#F5FFFFFF" />
-            <corners android:radius="13dp" />
-        </shape>
+        <layer-list>
+            <item>
+                <shape android:shape="rectangle">
+                    <gradient android:angle="270" android:startColor="#FDFFFFFF" android:endColor="#EEFFFFFF" />
+                    <corners android:radius="13dp" />
+                </shape>
+            </item>
+            <item>
+                <shape android:shape="rectangle">
+                    <gradient android:angle="270" android:startColor="#77FFFFFF" android:endColor="#00FFFFFF" />
+                    <corners android:radius="13dp" />
+                </shape>
+            </item>
+            <item>
+                <shape android:shape="rectangle">
+                    <stroke android:width="1dp" android:color="#AAFFFFFF" />
+                    <corners android:radius="13dp" />
+                </shape>
+            </item>
+        </layer-list>
     </item>
+
+    <!-- Unfocused: transparent, the glass_panel behind shows through -->
     <item>
         <shape android:shape="rectangle">
             <solid android:color="#00000000" />
             <corners android:radius="13dp" />
         </shape>
     </item>
+
 </selector>
