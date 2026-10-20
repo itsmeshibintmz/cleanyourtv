@@ -2,18 +2,26 @@ package com.gathin.tvhome;
 
 import android.animation.ArgbEvaluator;
 import android.animation.ValueAnimator;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Point;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Handler;
 import android.os.Looper;
 import android.service.dreams.DreamService;
+import android.view.Display;
 import android.view.View;
+import android.view.WindowManager;
+import android.widget.ImageView;
 
+import java.io.File;
 import java.util.Random;
 
 /**
- * Screensaver: the launcher's thin clock and date on black, over a slow ambient glow.
- * Every minute the clock drifts to a new spot and the glow shifts colour, so nothing burns in.
- * No network, no images: cheap enough for a 1 GB TV.
+ * Screensaver: drifting clock and date over a slow ambient glow, on black or on a wallpaper.
+ * Every minute the clock drifts to a new spot and the glow shifts colour (burn-in protection).
+ * If {@code screensaver.jpg} is present in the launcher's external files directory it is shown
+ * behind the glow; push it there with {@code tools/screensaver.sh} or directly via ADB.
  */
 public class ClockDream extends DreamService {
 
@@ -54,6 +62,49 @@ public class ClockDream extends DreamService {
                 glow.setGradientRadius((r - l) * 0.55f));
         colorIndex = random.nextInt(PALETTE.length);
         setGlow(PALETTE[colorIndex]);
+
+        // Load screensaver wallpaper if the user has pushed one via tools/screensaver.sh.
+        loadScreensaverWallpaper();
+    }
+
+    /**
+     * Loads {@code screensaver.jpg} from the launcher's external files directory.
+     * If absent the screensaver stays black with only the ambient glow.
+     */
+    private void loadScreensaverWallpaper() {
+        File dir = Config.dir(this);
+        if (dir == null) return;
+        File file = new File(dir, "screensaver.jpg");
+        if (!file.isFile() || file.length() == 0) return;
+
+        // Decode at screen resolution to avoid OOM on 1 GB TVs.
+        BitmapFactory.Options probe = new BitmapFactory.Options();
+        probe.inJustDecodeBounds = true;
+        BitmapFactory.decodeFile(file.getAbsolutePath(), probe);
+
+        WindowManager wm = (WindowManager) getSystemService(WINDOW_SERVICE);
+        Display display = wm != null ? wm.getDefaultDisplay() : null;
+        Point size = new Point(1920, 1080);
+        if (display != null) display.getSize(size);
+
+        int sampleX = Math.max(1, probe.outWidth  / Math.max(1, size.x));
+        int sampleY = Math.max(1, probe.outHeight / Math.max(1, size.y));
+        int sample  = Math.max(1, Math.min(sampleX, sampleY));
+
+        BitmapFactory.Options opts = new BitmapFactory.Options();
+        opts.inSampleSize = sample;
+        Bitmap bmp = BitmapFactory.decodeFile(file.getAbsolutePath(), opts);
+        if (bmp == null) return;
+
+        ImageView wallpaperView = findViewById(R.id.dreamWallpaper);
+        View overlayView        = findViewById(R.id.dreamOverlay);
+        if (wallpaperView == null) return;
+
+        wallpaperView.setImageBitmap(bmp);
+        wallpaperView.setAlpha(1f);
+
+        // Semi-transparent dark scrim so the white clock stays readable over colourful wallpapers.
+        if (overlayView != null) overlayView.setBackgroundColor(0x62000000); // ~38% dark
     }
 
     @Override

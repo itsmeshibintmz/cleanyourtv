@@ -1,9 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Screensaver (ClockDream): clock and date that drift around a black screen over an ambient glow. -->
+<!-- Screensaver (ClockDream): drifting clock over an ambient glow.
+     If screensaver.jpg exists in the launcher's external files dir, it is shown as background. -->
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FF000000">
+
+    <!-- Wallpaper layer — loaded from external files dir/screensaver.jpg if present. -->
+    <ImageView
+        android:id="@+id/dreamWallpaper"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:alpha="0"
+        android:importantForAccessibility="no" />
+
+    <!-- Dark scrim over the wallpaper: keeps clock text readable; shown only when wallpaper loaded. -->
+    <View
+        android:id="@+id/dreamOverlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#00000000"
+        android:importantForAccessibility="no" />
 
     <View
         android:id="@+id/dreamAmbient"
