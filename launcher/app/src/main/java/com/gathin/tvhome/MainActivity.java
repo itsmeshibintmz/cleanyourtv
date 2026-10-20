@@ -98,6 +98,8 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
     private boolean animations;
     private boolean advancedEffects;
     private TextView greeting;
+    private TextView quote;
+    private String ownerName;
     private View btnInputs;
     private TextView btnWifi;
     private TextView shamsiDate;
@@ -220,6 +222,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         ambient.forceHasOverlappingRendering(false);
         heroName = findViewById(R.id.heroName);
         greeting = findViewById(R.id.greeting);
+        quote = findViewById(R.id.quote);
         btnWifi = findViewById(R.id.btnWifi);
         shamsiDate = findViewById(R.id.shamsiDate);
         shamsi = cfg.shamsiDate;
@@ -230,6 +233,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
             date.setPadding(0, (int) (4 * density), 0, 0);
         }
         vpnApp = cfg.vpnApp;
+        ownerName = cfg.ownerName;
         moduleCards = cfg.moduleCards;
         hiddenApps = new HashSet<>(cfg.hiddenApps);
 
@@ -810,15 +814,65 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
 
     // ---- top bar ---------------------------------------------------------------------------------
 
+    // Tech-focused quotes that rotate daily — one per day, never motivational.
+    private static final String[] TECH_QUOTES = {
+        "Any sufficiently advanced technology is indistinguishable from magic.  — Arthur C. Clarke",
+        "Talk is cheap. Show me the code.  — Linus Torvalds",
+        "The best way to predict the future is to invent it.  — Alan Kay",
+        "Premature optimization is the root of all evil.  — Donald Knuth",
+        "The cloud is just someone else's computer.",
+        "If debugging is removing bugs, then programming must be putting them in.  — Dijkstra",
+        "Programs must be written for people to read, only incidentally for machines.  — Abelson",
+        "Without data, you're just another person with an opinion.  — W. Edwards Deming",
+        "There are 10 types of people: those who understand binary and those who don't.",
+        "Good code is its own best documentation.  — Steve McConnell",
+        "Make it work, make it right, make it fast.  — Kent Beck",
+        "Don't comment bad code — rewrite it.  — Brian Kernighan",
+        "Real privacy isn't convenience theater — it's math.",
+        "The best interface is no interface.  — Golden Krishna",
+        "Unix is user-friendly; it's just picky about who its friends are.",
+        "Data is the new oil.  — Clive Humby",
+        "Hardware eventually fails. Software eventually works.",
+        "First, solve the problem. Then, write the code.",
+        "Given enough eyeballs, all bugs are shallow.  — Linus's Law",
+        "The most dangerous phrase: 'We've always done it this way.'  — Grace Hopper",
+        "Simplicity is the ultimate sophistication.  — da Vinci",
+        "Software is eating the world.  — Marc Andreessen",
+        "Every line of code is a liability.",
+        "The future is already here — it's just not evenly distributed.  — William Gibson",
+        "It's not a bug — it's an undocumented feature.",
+        "Bad programmers worry about code. Good programmers worry about data structures.  — Torvalds",
+        "Measuring progress by lines of code is like measuring flight by fuel burned.  — Gates",
+        "The art of programming is the art of organizing complexity.  — Dijkstra",
+        "Think twice, code once.",
+        "Open source: collaborating, not competing.  — Tim O'Reilly",
+        "The question of whether a computer can think is no more interesting than whether a submarine can swim.  — Dijkstra",
+        "Computers are useless. They can only give you answers.  — Picasso",
+    };
+
     private void updateGreeting() {
-        int hour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
+        Calendar now = Calendar.getInstance();
+        int hour = now.get(Calendar.HOUR_OF_DAY);
         int res;
-        if (hour < 5) res = R.string.good_night;
+        if      (hour <  5) res = R.string.good_night;
         else if (hour < 12) res = R.string.good_morning;
         else if (hour < 17) res = R.string.good_afternoon;
         else if (hour < 22) res = R.string.good_evening;
-        else res = R.string.good_night;
-        greeting.setText(res);
+        else                res = R.string.good_night;
+
+        // Append owner name: "GOOD MORNING, SHIBIN" (textAllCaps in layout handles casing).
+        if (ownerName != null && !ownerName.isEmpty()) {
+            greeting.setText(getString(res) + ", " + ownerName);
+        } else {
+            greeting.setText(res);
+        }
+
+        // Rotate quote daily — same quote all day, changes at midnight.
+        int dayOfYear = now.get(Calendar.DAY_OF_YEAR);
+        int year      = now.get(Calendar.YEAR);
+        int idx       = Math.abs((dayOfYear * 31 + year) % TECH_QUOTES.length);
+        if (quote != null) quote.setText(TECH_QUOTES[idx]);
+
         if (shamsi) shamsiDate.setText(Shamsi.today());
     }
 

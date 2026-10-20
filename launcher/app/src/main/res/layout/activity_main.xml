@@ -152,6 +152,21 @@
                             android:textAllCaps="true" />
                     </LinearLayout>
                 </LinearLayout>
+
+                <!-- Daily rotating tech quote, shown below the clock row. -->
+                <TextView
+                    android:id="@+id/quote"
+                    android:gravity="left"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginStart="4dp"
+                    android:textColor="#40FFFFFF"
+                    android:textSize="10sp"
+                    android:fontFamily="@font/outfit_regular"
+                    android:letterSpacing="0.03"
+                    android:singleLine="true"
+                    android:ellipsize="end" />
             </LinearLayout>
 
             <LinearLayout

@@ -1,0 +1,8 @@
+{
+  "background_color": "#0D0600",
+  "wallpaper": true,
+  "advanced_effects": true,
+  "rows_below_dock": 1,
+  "sky_intensity": 55,
+  "vpn_app": "com.protonvpn.android"
+}
