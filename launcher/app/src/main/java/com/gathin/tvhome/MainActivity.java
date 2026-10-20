@@ -885,7 +885,8 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         // Rotate quote daily — same quote all day, changes at midnight.
         int dayOfYear = now.get(Calendar.DAY_OF_YEAR);
         int year      = now.get(Calendar.YEAR);
-        int idx       = Math.abs((dayOfYear * 31 + year) % TECH_QUOTES.length);
+        long totalHours = (long) year * 8784 + (long) dayOfYear * 24 + hour;  // hour already declared above
+        int idx       = (int) Math.abs(totalHours % TECH_QUOTES.length);
         if (quote != null) quote.setText(TECH_QUOTES[idx]);
 
         if (shamsi) shamsiDate.setText(Shamsi.today());
