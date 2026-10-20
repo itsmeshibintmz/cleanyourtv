@@ -25,6 +25,25 @@ and a one-line restore if you change your mind.**
 
 <h3 align="center">66 TV models &nbsp;·&nbsp; 25 brands &nbsp;·&nbsp; 14 languages &nbsp;·&nbsp; 300 KB launcher</h3>
 
+<p align="center">
+  <sub><b>FEATURED IN</b></sub><br><br>
+  <a href="https://techcrunch.com/2026/10/19/people-are-using-ai-to-make-their-smart-tvs-dumb-again/"><img src="docs/press/techcrunch.png" height="34" alt="TechCrunch"></a>&nbsp;&nbsp;
+  <a href="https://mashable.com/tech/smart-tv-ads-claude-code-ai-cleanup"><img src="docs/press/mashable.png" height="34" alt="Mashable"></a>&nbsp;&nbsp;
+  <a href="https://itsfoss.com/news/debloat-smart-tv/"><img src="docs/press/itsfoss.png" height="34" alt="It's FOSS"></a>&nbsp;&nbsp;
+  <a href="https://techaeris.com/2026/10/18/android-tv-debloat-tvos-style-makeover/"><img src="docs/press/techaeris.png" height="34" alt="Techaeris"></a>&nbsp;&nbsp;
+  <a href="https://www.techtimes.co.uk/ai-smart-tv-bloatware-performance-fix-1809233"><img src="docs/press/techtimes.png" height="34" alt="Tech Times"></a>&nbsp;&nbsp;
+  <a href="https://tech.yahoo.com/ai/meta-ai/articles/developers-using-ai-strip-ads-185856468.html"><img src="docs/press/gadgetreview.png" height="34" alt="Gadget Review"></a>&nbsp;&nbsp;
+  <a href="https://techpp.com/2026/10/18/speed-up-android-tv-claude-code/"><img src="docs/press/techpp.png" height="34" alt="TechPP"></a>&nbsp;&nbsp;
+  <a href="https://www.frandroid.com/android/google-tv/3290159_google-tv-lent-et-envahi-par-les-pubs-le-projet-tv-vibehack-corrige-tout-ca-grace-a-lia-jai-tente-lexperience"><img src="docs/press/frandroid.png" height="34" alt="Frandroid"></a>&nbsp;&nbsp;
+  <a href="https://www.xboxygen.com/News/371393-sa-tv-xiaomi-affichait-des-pubs-partout-il-donne-son-modele-a-claude-code-qui-refait-toute-linterface"><img src="docs/press/xboxygen.png" height="34" alt="Xboxygen"></a>&nbsp;&nbsp;
+  <a href="https://itavisen.no/2026/10/19/vibekodet-bort-reklame-smart-tv/"><img src="docs/press/itavisen.png" height="34" alt="ITavisen"></a>&nbsp;&nbsp;
+  <a href="https://pplware.sapo.pt/inteligencia-artificial/nem-as-smart-tv-escaparam-a-febre-do-vibe-coding-a-televisao-a-medida-de-cada-utilizador/"><img src="docs/press/pplware.png" height="34" alt="Pplware"></a>&nbsp;&nbsp;
+  <a href="https://insmart.cz/android-tv-bez-reklam-ai-claude-code/"><img src="docs/press/insmart.png" height="34" alt="Insmart"></a>&nbsp;&nbsp;
+  <a href="https://inet.detik.com/consumer/d-8713172/kesal-tv-xiaomi-banyak-iklan-pria-ini-sulap-jadi-apple-tv-pakai-ai"><img src="docs/press/detikinet.png" height="34" alt="detikINET"></a>&nbsp;&nbsp;
+  <a href="https://www.iphonemod.net/clean-your-tv-android-tv-debloat-launcher.html"><img src="docs/press/iphonemod.png" height="34" alt="iPhoneMod"></a>
+</p>
+
+
 ![Before: stock Google TV home with a sponsored ad. After: the Clean Your TV launcher](docs/stock-vs-new-side.jpg)
 
 > Vibe coded my parents' TV this afternoon! It was showing a sponsored ad before you could even get
@@ -225,7 +244,7 @@ the install script finds `~/Android/Sdk` and the `java` on your PATH.
 - **Configure** in [`config.xml`](launcher/app/src/main/res/values/config.xml): dock order, hidden apps, the Live TV package, columns (tiles shrink from 5 up), rows under the dock, an optional VPN app for the network pill, and `reduced_motion` for TVs whose GPU cannot keep up.
 - **On-TV launcher settings:** click Settings for the TV's system settings, or hold OK on Settings and choose Launcher settings to set 4, 5, 6 or 7 apps per row, turn animations on or off, and opt into advanced effects. The advanced option adds tile lift, icon zoom and smooth ambient-colour transitions; it may use more memory. Use Follow theme to clear on-TV choices. Pushing or resetting a theme also clears them.
 - **Change the default home:** Launcher settings and the optional Default-home tile (`show_home_settings_shortcut`) open Android's home picker. Choose the original launcher to stop using CleanYourTV as Home, or CleanYourTV to return. The original launcher must be enabled. If the install script disabled it, use the restore script below first. Some TVs provide no home picker.
-- **Themes** set the same keys plus a background colour and a wallpaper from a `config.json` pushed to the TV, no rebuild. Three ship in [`themes/`](themes/), documented there.
+- **Themes** set the same keys plus a background colour and a wallpaper from a `config.json` pushed to the TV, no rebuild. Four ship in [`themes/`](themes/), documented there.
 - **Language** follows the TV: English, German, Spanish, Catalan, French, Russian, Serbian (Latin), Polish, Portuguese, Turkish, Arabic, Hebrew, Simplified Chinese, Thai. Android 13+ can set it for the launcher alone: `tools/tv.py 'cmd locale set-app-locales com.gathin.tvhome --locales ca'`.
   Hebrew places the menu buttons on the left and the date and clock on the right, with the greeting above the clock. The Clock screensaver right-aligns its date and time, and Hebrew dates include the month prefix ב (for example, 19 באוקטובר). Hebrew dock and app-grid rows start on the right, with matching left/right remote navigation. The Hebrew input selector places icons and labels on the right, status on the left, and aligns the dropdown with the Inputs button’s right edge. Other languages keep their original layouts.
   Russian includes the module-card approval and management screens and the VPN-off badge.
