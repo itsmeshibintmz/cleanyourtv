@@ -226,6 +226,21 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         btnWifi = findViewById(R.id.btnWifi);
         shamsiDate = findViewById(R.id.shamsiDate);
         shamsi = cfg.shamsiDate;
+
+        // Light-background themes ("dark_text": true in config.json) flip the header to dark ink.
+        if (cfg.darkText) {
+            greeting.setTextColor(0xAA1A1A2E);
+            greeting.setShadowLayer(0, 0, 0, 0);
+            quote.setTextColor(0x881A1A2E);
+            quote.setShadowLayer(0, 0, 0, 0);
+            android.widget.TextClock clockView = findViewById(R.id.clock);
+            if (clockView != null) { clockView.setTextColor(0xDD1A1A2E); clockView.setShadowLayer(0,0,0,0); }
+            android.widget.TextClock ampmView = findViewById(R.id.ampm);
+            if (ampmView != null) { ampmView.setTextColor(0xAA1A1A2E); ampmView.setShadowLayer(0,0,0,0); }
+            android.widget.TextClock dateView = findViewById(R.id.date);
+            if (dateView != null) { dateView.setTextColor(0x991A1A2E); dateView.setShadowLayer(0,0,0,0); }
+            heroName.setTextColor(0xDD1A1A2E);
+        }
         if (shamsi) {
             shamsiDate.setVisibility(View.VISIBLE);
             TextView date = findViewById(R.id.date);

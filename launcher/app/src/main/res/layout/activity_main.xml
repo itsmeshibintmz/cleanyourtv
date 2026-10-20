@@ -69,7 +69,11 @@
                     android:textSize="12sp"
                     android:fontFamily="@font/outfit_medium"
                     android:letterSpacing="0.22"
-                    android:textAllCaps="true" />
+                    android:textAllCaps="true"
+                    android:shadowColor="#33000000"
+                    android:shadowRadius="3"
+                    android:shadowDx="0"
+                    android:shadowDy="1" />
 
                 <!-- Daily rotating tech quote, shown between the greeting and the clock. -->
                 <TextView
@@ -85,7 +89,11 @@
                     android:fontFamily="@font/outfit_regular"
                     android:letterSpacing="0.01"
                     android:singleLine="true"
-                    android:ellipsize="end" />
+                    android:ellipsize="end"
+                    android:shadowColor="#33000000"
+                    android:shadowRadius="3"
+                    android:shadowDx="0"
+                    android:shadowDy="1" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -103,7 +111,11 @@
                         android:textSize="52sp"
                         android:fontFamily="@font/outfit_light"
                         android:letterSpacing="-0.04"
-                        android:includeFontPadding="false" />
+                        android:includeFontPadding="false"
+                        android:shadowColor="#33000000"
+                        android:shadowRadius="4"
+                        android:shadowDx="0"
+                        android:shadowDy="1" />
 
                     <TextClock
                         android:id="@+id/ampm"
@@ -118,7 +130,11 @@
                         android:textSize="15sp"
                         android:fontFamily="@font/outfit_medium"
                         android:letterSpacing="0.08"
-                        android:textAllCaps="true" />
+                        android:textAllCaps="true"
+                        android:shadowColor="#33000000"
+                        android:shadowRadius="3"
+                        android:shadowDx="0"
+                        android:shadowDy="1" />
 
                     <View
                         android:layout_width="1dp"
@@ -165,7 +181,11 @@
                             android:textSize="14sp"
                             android:fontFamily="@font/outfit_regular"
                             android:letterSpacing="0.14"
-                            android:textAllCaps="true" />
+                            android:textAllCaps="true"
+                            android:shadowColor="#33000000"
+                            android:shadowRadius="3"
+                            android:shadowDx="0"
+                            android:shadowDy="1" />
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
