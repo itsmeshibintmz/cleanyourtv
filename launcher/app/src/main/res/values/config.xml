@@ -56,7 +56,7 @@
     </integer-array>
 
     <!-- Your name, shown after the greeting ("Good Morning, Shibin"). Leave empty to omit. -->
-    <string name="owner_name" translatable="false">Shibin</string>
+    <string name="owner_name" translatable="false"></string>
 
     <!-- Show the Solar Hijri (Shamsi) date used in Iran and Afghanistan, e.g. "27 Mehr 1405", above the
          Gregorian date. -->
