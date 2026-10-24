@@ -95,4 +95,16 @@
          sets its opacity. Around 60 reads clearly without hiding a wallpaper. Can also be set with
          "sky_intensity": 60 in a theme's config.json. -->
     <integer name="sky_intensity">0</integer>
+
+    <!-- App rows dissolve into the wallpaper at the top instead of ending at a hard line under the
+         clock. Costs about 6 MB of GPU memory at 1080p. Set with "fade_rows": true in a theme's config.json. -->
+    <bool name="fade_rows">false</bool>
+
+    <!-- Wi-Fi pill icon turns green (#34C759) while the TV has internet; stays white when offline.
+         Set with "wifi_status_color": true in a theme's config.json. -->
+    <bool name="wifi_status_color">false</bool>
+
+    <!-- The glass focus highlight takes the focused app's dominant colour (Netflix red, YouTube red,
+         etc.) on every tile, not just the cinematic dock shelf. Set with "app_glow": true in a theme's config.json. -->
+    <bool name="app_glow">false</bool>
 </resources>

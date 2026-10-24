@@ -58,6 +58,7 @@ import androidx.dynamicanimation.animation.DynamicAnimation;
 import androidx.dynamicanimation.animation.FloatPropertyCompat;
 import androidx.dynamicanimation.animation.SpringAnimation;
 import androidx.dynamicanimation.animation.SpringForce;
+import android.content.res.ColorStateList;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -121,6 +122,10 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
     private float density;
     /** Module cards (res/values/config.xml, module_cards): discovered on resume, shown only after the owner's Show. */
     private boolean moduleCards;
+    /** config.xml app_glow: the glass highlight takes the focused app's colour on every tile. */
+    private boolean appGlow;
+    /** config.xml wifi_status_color: green tint while online; null while feature is off. */
+    private ColorStateList wifiOnlineTint, wifiPlainTint;
     /** Calmer motion for weak GPUs (config.xml, reduced_motion): stiff spring, short fades, no replay. */
     private boolean reducedMotion;
     /** hidden_apps as the adapter sees them (config.xml or a theme's config.json): a hidden app gets no card either. */
@@ -220,10 +225,16 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         // The glow is one bitmap, so its alpha can be applied while drawing it. Otherwise every frame of
         // a fade renders it into a full-screen offscreen buffer first.
         ambient.forceHasOverlappingRendering(false);
+        appGlow = cfg.appGlow;
         heroName = findViewById(R.id.heroName);
         greeting = findViewById(R.id.greeting);
         quote = findViewById(R.id.quote);
         btnWifi = findViewById(R.id.btnWifi);
+        // wifi_status_color: init tints now that btnWifi is assigned.
+        if (cfg.wifiStatusColor) {
+            wifiPlainTint = btnWifi.getCompoundDrawableTintList();
+            wifiOnlineTint = getColorStateList(R.color.pill_icon_online);
+        }
         shamsiDate = findViewById(R.id.shamsiDate);
         shamsi = cfg.shamsiDate;
 
@@ -264,6 +275,7 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
         grid.setHasFixedSize(true);
         grid.setItemAnimator(null);
         grid.addItemDecoration(new DockDecoration(COLUMNS, density));
+        if (cfg.fadeRows) TopFade.attach(grid, 48 * density);
         if (animations) {
             int enterAnim = reducedMotion ? R.anim.tile_enter_reduced : R.anim.tile_enter;
             float enterDelay = reducedMotion ? 0f : 0.06f;
@@ -589,6 +601,10 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
             lp.height = (int) h;
             glass.setLayoutParams(lp);
             glass.setRadius(AppAdapter.cornerRadius(card.getWidth(), density) * scale);
+        }
+        // app_glow: glass highlight takes the focused app's dominant colour on every tile.
+        if (appGlow) {
+            glass.setAccent(adapter.ambientColorAt(position));
         }
         glassTargetX = x;
         glassTargetY = y;
@@ -950,6 +966,13 @@ public class MainActivity extends Activity implements AppAdapter.TileListener {
             btnWifi.setText(text);
         }
         btnWifi.setCompoundDrawablesRelativeWithIntrinsicBounds(icon, 0, 0, 0);
+        // wifi_status_color: green icon while online, plain white while offline.
+        if (wifiOnlineTint != null) {
+            ColorStateList tint = online ? wifiOnlineTint : wifiPlainTint;
+            if (btnWifi.getCompoundDrawableTintList() != tint) {
+                btnWifi.setCompoundDrawableTintList(tint);
+            }
+        }
     }
 
     /** The network pill opens the VPN app when one is configured and installed, otherwise Wi-Fi settings. */

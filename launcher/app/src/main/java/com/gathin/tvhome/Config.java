@@ -62,6 +62,12 @@ final class Config {
     final File wallpaper;
     /** When true, header text (clock, greeting, quote) uses dark ink — for light-background themes. */
     final boolean darkText;
+    /** The rows fade out under the clock instead of being cut off (config.json fade_rows). */
+    final boolean fadeRows;
+    /** Wi-Fi pill icon turns green while online (config.json wifi_status_color). */
+    final boolean wifiStatusColor;
+    /** The focus highlight takes the focused app's colour on every tile (config.json app_glow). */
+    final boolean appGlow;
     /** Whether the overlay file was present and parsed. */
     final boolean overlayApplied;
 
@@ -70,7 +76,8 @@ final class Config {
                    int columns, int rowsBelowDock, boolean animations, boolean advancedEffects,
                    boolean shamsiDate, boolean moduleCards, boolean reducedMotion, String vpnApp,
                    String ownerName, boolean showHomeSettingsShortcut, int backgroundColor, int skyIntensity,
-                   File wallpaper, boolean darkText, boolean overlayApplied) {
+                   File wallpaper, boolean darkText, boolean fadeRows, boolean wifiStatusColor,
+                   boolean appGlow, boolean overlayApplied) {
         this.dockApps = Collections.unmodifiableList(dockApps);
         this.hiddenApps = Collections.unmodifiableList(hiddenApps);
         this.liveTvPackage = liveTvPackage;
@@ -92,6 +99,9 @@ final class Config {
         this.skyIntensity = skyIntensity;
         this.wallpaper = wallpaper;
         this.darkText = darkText;
+        this.fadeRows = fadeRows;
+        this.wifiStatusColor = wifiStatusColor;
+        this.appGlow = appGlow;
         this.overlayApplied = overlayApplied;
     }
 
@@ -122,6 +132,9 @@ final class Config {
         int background = 0xFF000000;
         int skyIntensity = res.getInteger(R.integer.sky_intensity);
         boolean darkText = false;
+        boolean fadeRows = res.getBoolean(R.bool.fade_rows);
+        boolean wifiStatusColor = res.getBoolean(R.bool.wifi_status_color);
+        boolean appGlow = res.getBoolean(R.bool.app_glow);
         boolean applied = false;
 
         File dir = dir(ctx);
@@ -149,6 +162,9 @@ final class Config {
             background = color(json, "background_color", background);
             skyIntensity = integer(json, "sky_intensity", skyIntensity, 0, 100);
             darkText = bool(json, "dark_text", darkText);
+            fadeRows = bool(json, "fade_rows", fadeRows);
+            wifiStatusColor = bool(json, "wifi_status_color", wifiStatusColor);
+            appGlow = bool(json, "app_glow", appGlow);
         }
         // A theme push or reset invalidates choices made on the TV. On first use, remember the
         // current theme without clearing choices from an older launcher version.
@@ -166,7 +182,8 @@ final class Config {
         return new Config(dock, hidden, liveTv, liveTvAction, panelService, panelAction, inputAction,
                 Math.max(1, columns), Math.max(0, rowsBelow), animations, advancedEffects,
                 shamsi, moduleCards, reducedMotion, vpn, ownerName, homeSettings, background,
-                Math.max(0, Math.min(100, skyIntensity)), wallpaper, darkText, applied);
+                Math.max(0, Math.min(100, skyIntensity)), wallpaper, darkText, fadeRows,
+                wifiStatusColor, appGlow, applied);
     }
 
     private static void syncThemeChoices(SharedPreferences choices, File dir, File config) {
