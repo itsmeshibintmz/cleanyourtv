@@ -5,7 +5,7 @@
   "advanced_effects": true,
   "rows_below_dock": 1,
   "sky_intensity": 0,
-  "dark_text": true,
+  "dark_text": false,
   "fade_rows": true,
   "wifi_status_color": true,
   "app_glow": true,
