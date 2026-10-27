@@ -188,10 +188,12 @@ public class ClockDream extends DreamService {
     // ───────── Wallpaper ─────────────────────────────────────────────────────
 
     private void loadScreensaverWallpaper() {
-        File dir  = Config.dir(this);
+        File dir = Config.dir(this);
         if (dir == null) return;
-        File file = new File(dir, "screensaver.jpg");
-        if (!file.isFile() || file.length() == 0) return;
+
+        // Prefer walls/ subfolder (rotating gallery) — falls back to screensaver.jpg.
+        File file = pickWallpaper(dir);
+        if (file == null) return;
 
         BitmapFactory.Options probe = new BitmapFactory.Options();
         probe.inJustDecodeBounds = true;
@@ -289,6 +291,27 @@ public class ClockDream extends DreamService {
     }
 
     // ───────── Location & Sun times ──────────────────────────────────────────
+
+    /**
+     * Picks a wallpaper file.
+     * Checks walls/ subfolder first — picks a random image each time the screensaver activates.
+     * Falls back to screensaver.jpg if walls/ is absent or empty.
+     */
+    private File pickWallpaper(File dir) {
+        File wallsDir = new File(dir, "walls");
+        if (wallsDir.isDirectory()) {
+            File[] imgs = wallsDir.listFiles(f -> {
+                String n = f.getName().toLowerCase(Locale.ROOT);
+                return f.isFile() && (n.endsWith(".jpg") || n.endsWith(".jpeg") || n.endsWith(".png"));
+            });
+            if (imgs != null && imgs.length > 0) {
+                return imgs[random.nextInt(imgs.length)];
+            }
+        }
+        // Single-file fallback
+        File single = new File(dir, "screensaver.jpg");
+        return (single.isFile() && single.length() > 0) ? single : null;
+    }
 
     /** Reads screensaver_lat / screensaver_lon from config.json (falls back to Pala, Kerala). */
     private void readLocation() {

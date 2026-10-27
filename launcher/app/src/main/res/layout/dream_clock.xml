@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Screensaver (ClockDream) — Twitter-inspired minimal look.
-     Wallpaper at full brightness (no scrim). Clock, sun times, and rotating quote drift
-     for burn-in protection. -->
+<!-- Screensaver (ClockDream) — full-brightness wallpaper, rotating from walls/ folder.
+     All small text is near-pure white with a hairline shadow so it reads on any wallpaper. -->
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FF000000">
 
-    <!-- Wallpaper — no dark overlay; the image is the hero. -->
     <ImageView
         android:id="@+id/dreamWallpaper"
         android:layout_width="match_parent"
@@ -16,7 +14,7 @@
         android:alpha="0"
         android:importantForAccessibility="no" />
 
-    <!-- Overlay kept at transparent; never given a scrim with this design. -->
+    <!-- Always transparent — no scrim. -->
     <View
         android:id="@+id/dreamOverlay"
         android:layout_width="match_parent"
@@ -24,13 +22,11 @@
         android:background="#00000000"
         android:importantForAccessibility="no" />
 
-    <!-- Ambient rainbow glow — subtle radial behind the drifting block. -->
     <View
         android:id="@+id/dreamAmbient"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-    <!-- Drifting clock block — center-aligned column. -->
     <LinearLayout
         android:id="@+id/dreamContent"
         android:layout_width="wrap_content"
@@ -38,62 +34,78 @@
         android:orientation="vertical"
         android:gravity="center_horizontal">
 
-        <!-- Abbreviated date: MON, 26 OCT -->
+        <!-- Abbreviated date: TUE, 27 OCT — bright + hairline shadow -->
         <TextClock
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:format12Hour="EEE, d MMM"
             android:format24Hour="EEE, d MMM"
-            android:textColor="#70FFFFFF"
-            android:textSize="13sp"
+            android:textColor="#F0FFFFFF"
+            android:textSize="14sp"
             android:fontFamily="@font/inter_medium"
             android:letterSpacing="0.22"
-            android:textAllCaps="true" />
+            android:textAllCaps="true"
+            android:shadowColor="#CC000000"
+            android:shadowRadius="2"
+            android:shadowDx="0"
+            android:shadowDy="1" />
 
-        <!-- Large clock — no AM/PM; 24 h on this TV (HH:mm), 12 h shows h:mm -->
+        <!-- Large clock: h:mm (12h) or HH:mm (24h) — pure white -->
         <TextClock
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:format12Hour="h:mm"
             android:format24Hour="HH:mm"
-            android:textColor="#F2FFFFFF"
+            android:textColor="#FFFFFFFF"
             android:textSize="140sp"
             android:fontFamily="@font/inter_light"
             android:letterSpacing="-0.03"
             android:includeFontPadding="false"
-            android:layout_marginTop="-6dp" />
+            android:layout_marginTop="-6dp"
+            android:shadowColor="#CC000000"
+            android:shadowRadius="4"
+            android:shadowDx="0"
+            android:shadowDy="2" />
 
-        <!-- Sunrise / sunset times — set in code from astronomical calculation. -->
+        <!-- Sunrise / sunset — bright, medium weight -->
         <TextView
             android:id="@+id/dreamSunTimes"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:textColor="#65FFFFFF"
-            android:textSize="12sp"
-            android:fontFamily="@font/inter_regular"
-            android:letterSpacing="0.05" />
+            android:textColor="#E8FFFFFF"
+            android:textSize="13sp"
+            android:fontFamily="@font/inter_medium"
+            android:letterSpacing="0.05"
+            android:shadowColor="#CC000000"
+            android:shadowRadius="2"
+            android:shadowDx="0"
+            android:shadowDy="1" />
 
-        <!-- Thin separator between meta info and the quote. -->
+        <!-- Separator -->
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginTop="14dp"
             android:layout_marginBottom="8dp"
-            android:background="#20FFFFFF" />
+            android:background="#50FFFFFF" />
 
-        <!-- Rotating tech quote — italic, changes each drift. -->
+        <!-- Rotating tech quote — bright italic -->
         <TextView
             android:id="@+id/dreamQuote"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#B0FFFFFF"
+            android:textColor="#F0FFFFFF"
             android:textSize="13sp"
-            android:fontFamily="@font/inter_regular"
+            android:fontFamily="@font/inter_medium"
             android:textStyle="italic"
             android:letterSpacing="0.04"
             android:maxWidth="420dp"
             android:ellipsize="end"
-            android:maxLines="1" />
+            android:maxLines="1"
+            android:shadowColor="#CC000000"
+            android:shadowRadius="2"
+            android:shadowDx="0"
+            android:shadowDy="1" />
     </LinearLayout>
 </FrameLayout>
