@@ -1,17 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Screensaver (ClockDream) — all upgrades active:
-     A: center-align + AM/PM superscript
-     B: thin separator + rotating quote
-     C: rainbow glow
-     D: staggered child fade-in
-     E: 15% scrim + Ken Burns wallpaper pan
-     F: split date (day name / day + month on separate lines) -->
+<!-- Screensaver (ClockDream) — Twitter-inspired minimal look.
+     Wallpaper at full brightness (no scrim). Clock, sun times, and rotating quote drift
+     for burn-in protection. -->
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FF000000">
 
-    <!-- E: Wallpaper — Ken Burns zoom/pan started in code after bitmap loads. -->
+    <!-- Wallpaper — no dark overlay; the image is the hero. -->
     <ImageView
         android:id="@+id/dreamWallpaper"
         android:layout_width="match_parent"
@@ -20,7 +16,7 @@
         android:alpha="0"
         android:importantForAccessibility="no" />
 
-    <!-- E: Very light 15% scrim — set to 0x26000000 in code when wallpaper is loaded. -->
+    <!-- Overlay kept at transparent; never given a scrim with this design. -->
     <View
         android:id="@+id/dreamOverlay"
         android:layout_width="match_parent"
@@ -28,13 +24,13 @@
         android:background="#00000000"
         android:importantForAccessibility="no" />
 
-    <!-- C: Ambient rainbow glow drawn as radial gradient in code. -->
+    <!-- Ambient rainbow glow — subtle radial behind the drifting block. -->
     <View
         android:id="@+id/dreamAmbient"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-    <!-- A: Clock block — centered horizontally; children fade in staggered (D). -->
+    <!-- Drifting clock block — center-aligned column. -->
     <LinearLayout
         android:id="@+id/dreamContent"
         android:layout_width="wrap_content"
@@ -42,74 +38,51 @@
         android:orientation="vertical"
         android:gravity="center_horizontal">
 
-        <!-- A: Time row — gravity=top so AM/PM acts as a superscript. -->
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="top">
-
-            <TextClock
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:format12Hour="h:mm"
-                android:format24Hour="HH:mm"
-                android:textColor="#E6FFFFFF"
-                android:textSize="120sp"
-                android:fontFamily="@font/inter_light"
-                android:letterSpacing="-0.04"
-                android:includeFontPadding="false" />
-
-            <!-- A: small superscript — sits top-right of digits with a top margin nudge. -->
-            <TextClock
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="20dp"
-                android:format12Hour="a"
-                android:format24Hour=""
-                android:textColor="#80FFFFFF"
-                android:textSize="20sp"
-                android:fontFamily="@font/inter_medium"
-                android:letterSpacing="0.10"
-                android:textAllCaps="true" />
-        </LinearLayout>
-
-        <!-- F: Day name — small, wide-tracked, muted. -->
+        <!-- Abbreviated date: MON, 26 OCT -->
         <TextClock
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="0dp"
-            android:format12Hour="EEEE"
-            android:format24Hour="EEEE"
-            android:textColor="#55FFFFFF"
-            android:textSize="12sp"
+            android:format12Hour="EEE, d MMM"
+            android:format24Hour="EEE, d MMM"
+            android:textColor="#70FFFFFF"
+            android:textSize="13sp"
             android:fontFamily="@font/inter_medium"
-            android:letterSpacing="0.28"
+            android:letterSpacing="0.22"
             android:textAllCaps="true" />
 
-        <!-- F: Day number + Month — larger, thin. -->
+        <!-- Large clock — no AM/PM; 24 h on this TV (HH:mm), 12 h shows h:mm -->
         <TextClock
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
-            android:format12Hour="d MMMM"
-            android:format24Hour="d MMMM"
-            android:textColor="#99FFFFFF"
-            android:textSize="22sp"
+            android:format12Hour="h:mm"
+            android:format24Hour="HH:mm"
+            android:textColor="#F2FFFFFF"
+            android:textSize="140sp"
             android:fontFamily="@font/inter_light"
-            android:letterSpacing="0.10"
-            android:textAllCaps="true" />
+            android:letterSpacing="-0.03"
+            android:includeFontPadding="false"
+            android:layout_marginTop="-6dp" />
 
-        <!-- B: Thin separator between date and quote. -->
+        <!-- Sunrise / sunset times — set in code from astronomical calculation. -->
+        <TextView
+            android:id="@+id/dreamSunTimes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:textColor="#65FFFFFF"
+            android:textSize="12sp"
+            android:fontFamily="@font/inter_regular"
+            android:letterSpacing="0.05" />
+
+        <!-- Thin separator between meta info and the quote. -->
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginTop="14dp"
             android:layout_marginBottom="8dp"
-            android:background="#28FFFFFF" />
+            android:background="#20FFFFFF" />
 
-        <!-- B: Rotating tech quote — italic, faded, changes each drift cycle. -->
+        <!-- Rotating tech quote — italic, changes each drift. -->
         <TextView
             android:id="@+id/dreamQuote"
             android:layout_width="wrap_content"
